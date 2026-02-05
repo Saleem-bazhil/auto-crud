@@ -1,5 +1,5 @@
-async function getById(model,id) {
+const getById = (model) => async (id) => {
     return await model.findById(id);
 }
 
-model.exports = getById;
+module.exports = getById;

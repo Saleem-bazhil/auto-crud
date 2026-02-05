@@ -4,6 +4,8 @@ const getById = require("../core/getById");
 const updateById = require("../core/updateById");
 const deleteById = require("../core/deleteById");
 
+const { successResponse } = require("../utils/response");
+
 function autoCrud(app, model, options = {}) {
   if (!app || !model) {
     throw new Error("autoCrud requires an Express app and a Model");
@@ -13,8 +15,10 @@ function autoCrud(app, model, options = {}) {
 
   app.post(basePath, async (req, res, next) => {
     try {
-      const result = await createOne(model, req.body);
-      res.status(201).json({ success: true, data: result });
+      const result = await createOne(model)(req.body);
+      res
+        .status(201)
+        .json(successResponse(result, "Resource created successfully"));
     } catch (error) {
       next(error);
     }
@@ -22,8 +26,8 @@ function autoCrud(app, model, options = {}) {
 
   app.get(basePath, async (req, res, next) => {
     try {
-      const results = await getAll(model);
-      res.json({ success: true, data: results });
+      const results = await getAll(model)( req.query);
+      res.json(successResponse(results));
     } catch (error) {
       next(error);
     }
@@ -31,8 +35,8 @@ function autoCrud(app, model, options = {}) {
 
   app.get(`${basePath}/:id`, async (req, res, next) => {
     try {
-      const result = await getById(model, req.params.id);
-      res.status(200).json({ success: true, data: result });
+      const result = await getById(model)(req.params.id);
+      res.status(200).json(successResponse(result));
     } catch (error) {
       next(error);
     }
@@ -40,8 +44,10 @@ function autoCrud(app, model, options = {}) {
 
   app.put(`${basePath}/:id`, async (req, res, next) => {
     try {
-      const result = await updateById(model, req.params.id, req.body);
-      res.status(200).json({ success: true, data: result });
+      const result = await updateById(model)(req.params.id, req.body);
+      res
+        .status(200)
+        .json(successResponse(result, "Resource updated successfully"));
     } catch (error) {
       next(error);
     }
@@ -49,8 +55,10 @@ function autoCrud(app, model, options = {}) {
 
   app.delete(`${basePath}/:id`, async (req, res, next) => {
     try {
-      const result = await deleteById(model, req.params.id);
-      res.status(200).json({ success: true, data: result });
+      const result = await deleteById(model)(req.params.id);
+      res
+        .status(200)
+        .json(successResponse(result, "Resource deleted successfully"));
     } catch (error) {
       next(error);
     }

@@ -1,5 +1,12 @@
-async function createone(model,data) {
-    return await model.create(data);
+const createOne = (model) => async (data) => {
+    try {
+        return await model.create(data);
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            error.status = 400;
+        }
+        throw error;
+    }
 }
 
-model.exports = createone;
+module.exports = createOne;

@@ -1,5 +1,5 @@
-async function updateById(model, id, data) {
-    return await model.findByIdAndUpdate(id, data, { new: true ,runValidators: true});
+const updateById = (model) => async (id, data) => {
+    return await model.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 }
 
-exports = updateById;
+module.exports = updateById;

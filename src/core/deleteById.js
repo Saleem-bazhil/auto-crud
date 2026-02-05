@@ -1,4 +1,4 @@
-async function deleteById(model,data) {
-    return await model.findByIdAndDelete(data);
+const deleteById = (model) => async (id) => {
+    return await model.findByIdAndDelete(id);
 }
-exports = deleteById;
+module.exports = deleteById;    

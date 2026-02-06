@@ -1,5 +1,5 @@
 {
-  "name": "auto-crud",
+  "name": "bazhil-auto-crud",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -7,8 +7,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "description": "",
+  "license": "MIT",
+  "description": "Reusable auto CRUD generator for Express + Mongoose",
   "devDependencies": {
     "jest": "^30.2.0",
     "mongodb-memory-server": "^11.0.1",
